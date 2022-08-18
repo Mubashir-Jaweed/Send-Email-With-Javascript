@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./style.css">
+    <title>Contact form to email</title>
+</head>
+<body>
+    <div class="container">
+
+        <form onsubmit="sendEmail(event)" method="post">
+            <h2>Send Email With Javascript</h2>
+            <input type="text" placeholder="Name"required  id="name">
+            <input type="text" placeholder="Subject"required  id="sub">
+            <input type="email" placeholder="Email id where you want to send email"required  id="email">
+            <label > *Enter your email id where you want to send email ?*</label>
+            <textarea id="message" rows="4" placeholder="How can we help you ?"></textarea>
+            <button type="submit" >Send Message</button>
+
+        </form>
+    </div>
+
+    <script src="https://smtpjs.com/v3/smtp.js"></script>
+
+    <script>
+
+        
+        function sendEmail(event){
+            event.preventDefault()
+           Email.send({
+                SecureToken: "", // login to smtp.js and get security code; paste it here
+                To: document.querySelector("#email").value,
+                From: '',// Your email id reqister on SMTPJS.com
+                Subject: document.querySelector("#sub").value,
+                Body:  document.querySelector("#name").value + document.querySelector("#message").value,
+            }).then(
+                message => message == 'OK' ? alert(`Email successfully sent to ${document.querySelector("#email").value}
+                Check your email account`): alert(message)
+            );
+        }
+    </script>
+</body>
+</html>
